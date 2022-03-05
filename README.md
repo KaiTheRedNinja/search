@@ -16,7 +16,7 @@ If you prefer duckduckgo, you can set your URL to the following to have your sea
 https://search.alistair.sh/?q=%s&engine=https:%2f%2fduckduckgo.com%2f%3fq={q}
 ```
 
-Note that some browsers may react weirdly with `{q}`. If so, replace `{q}` with `%s`.
+###### Note that some browsers may react weirdly with `{q}`. If so, replace `{q}` with `%s`.
 
 #### Visual Guide
 
