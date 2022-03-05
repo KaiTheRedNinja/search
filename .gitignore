@@ -5,3 +5,5 @@ dist
 .DS_store
 .yarn/*
 !.yarn/releases
+.nova/*
+.package-lock.json
