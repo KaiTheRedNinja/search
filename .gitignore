@@ -6,4 +6,4 @@ dist
 .yarn/*
 !.yarn/releases
 .nova/*
-.package-lock.json
+package-lock.json
