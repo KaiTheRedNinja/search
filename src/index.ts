@@ -19,8 +19,8 @@ function handleRequest(request: Request) {
 	const query = url.searchParams.get('q') ?? '';
 	const querySplit = query.split(" ")
 	const engine = (url.searchParams.get('engine') ?? SITES.google) as string;
-	const posBang = (url.searchParams.get('posBang') ?? "true") as string;
-	const mulBang = (url.searchParams.get('mulBang') ?? "true") as string;
+	const posBang = (url.searchParams.get('posBang') ?? "true") as string; // bangs everywhere
+	const mulBang = (url.searchParams.get('mulBang') ?? "true") as string; // multiple bangs NONFUNC
 
 	// check for positional bang = false
 	var mainBang = ""
