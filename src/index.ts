@@ -20,12 +20,13 @@ function handleRequest(request: Request) {
 	const querySplit = query.split(" ")
 	const engine = (url.searchParams.get('engine') ?? SITES.google) as string;
 	const posBang = (url.searchParams.get('posBang') ?? "true") as string;
+	const mulBang = (url.searchParams.get('mulBang') ?? "true") as string;
 
 	// check for positional bang = false
 	var mainBang = ""
+	var queryWords = ""
 	if (posBang == 'true') {
 		// get array of bangs
-		var queryWords = ""
 		var queryBangs = []
 
 		for (const element of querySplit) {
@@ -43,16 +44,22 @@ function handleRequest(request: Request) {
 		// if there are multiple bangs, the first one will be taken as "main"
 
 		// open additional bangs in new tabs
-		for (const bang of queryBangs) {
-			const site = SITES[bang.toLowerCase()];
-			if (site) {
-				const parsed = typeof site === 'function' ? site(queryWords) : site;
-				openInBackground(parsed.replace('{q}', encodeChars(queryWords)));
+		if (mulBang == 'true') {
+			for (const bang of queryBangs) {
+				const site = SITES[bang.toLowerCase()];
+				if (site) {
+					const parsed = typeof site === 'function' ? site(queryWords) : site;
+					openInBackground(parsed.replace('{q}', encodeChars(queryWords)));
+				}
 			}
 		}
 	} else {
+		queryWords = query
+
 		if (query.startsWith('!')) {
 			mainBang = querySplit[0].toLowerCase().replace('!', '')
+			const [, ...rest] = querySplit;
+			queryWords = rest.join(' ');
 		}
 	}
 
