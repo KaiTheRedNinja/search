@@ -4,13 +4,15 @@ Supercharge your searching with a simple cloudflare worker.
 
 ### Guide:
 
-Add `https://search.alistair.sh/?q=` as a custom search engine to your browser. For Chrome, you would need to add `%s` on the end of that. Consult your browser's documentation for relavent information.
+Add `https://search.alistair.sh/?q=` as a custom search engine to your browser. For Chrome, you would need to add `%s` on the end of that. Some browsers may also react weirdly with `{q}`. If so, replace `{q}` with `%s`.
+
+Consult your browser's documentation for relavent information.
 
 ###### If building this project, install yarn (`brew install yarn`) and run using `npm run dev`.
 
-#### Flags
+#### Flags:
 
-#### Fallback Engines
+##### Fallback Engines
 
 If you prefer duckduckgo, you can add the following flag (`&engine=`) to your URL to have your searched routed through that instead:
 
@@ -18,22 +20,27 @@ If you prefer duckduckgo, you can add the following flag (`&engine=`) to your UR
 https://search.alistair.sh/?q=%s&engine=https:%2f%2fduckduckgo.com%2f%3fq={q}
 ```
 
-#### Multiple bangs
+##### Bangs everywhere
 
-This is currently a BROKEN FEATURE, as I cannot find a way to open links in new tabs.
+Currently, I've set the `posBang` (positional bang) flag to true by default.
 
-###### If you can find a way to do so (window.open() doesn't work for some reason)
-
-Currently, I've set the `posBang` (positional bang) flag to true by default, meaning that bangs can be ANYWHERE, not just the front. If you want to revert to the old behaviour, put `&posBang=false` to the url
+`posBang` set to true means bangs can be ANYWHERE, not just the front. If you want to revert to the old behaviour, put `&posBang=false` to the url.
 
 ```
 https://search.alistair.sh/?q=%s&posBang=false
 ```
 
-The posBang flag is REQUIRED for multiple bangs to work.
+Example usage: `test !google` instead of `!google test`
 
+##### Multiple bangs
 
-###### Note that some browsers may react weirdly with `{q}`. If so, replace `{q}` with `%s`.
+*This is currently a BROKEN FEATURE, as I cannot find a way to open links in new tabs. If you can find a way to open URLs in background tabs, put the code in* `openInBackground(url: string)`
+
+The `mulBang` (multiple bang) flag is `false` by default because it doesn't work.
+
+If `openInBackground(url: string)` worked it would allow for you to put multiple bangs in a query, eg. `test !google !bing !wikipedia`. The page would redirect to Google, but bing and wikipedia would open in the background.
+
+The `posBang` flag is REQUIRED to be `true` for multiple bangs to work.
 
 #### Visual Guide
 
